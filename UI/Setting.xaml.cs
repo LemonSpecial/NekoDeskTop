@@ -8,8 +8,8 @@ namespace NekoDeskTop.UI
 {
     public partial class Setting : Window
     {
-
         private bool _isInitializing = false;
+        private Point _defaultPosition;
         public Setting()
         {
             InitializeComponent();
@@ -33,8 +33,17 @@ namespace NekoDeskTop.UI
 
         private void StartInitUI()
         {
+            this.Topmost = true;
             this.WindowStyle = WindowStyle.None;
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            this.WindowStartupLocation = WindowStartupLocation.Manual;
+
+            _defaultPosition = new Point(
+                (SystemParameters.PrimaryScreenWidth - this.Width) / 2,
+                (SystemParameters.PrimaryScreenHeight - this.Height) / 2
+            );
+
+            this.Left = _defaultPosition.X;
+            this.Top = _defaultPosition.Y;
 
             FileSystem fileSystem = new FileSystem();
             string path = fileSystem.Read("WindowBackgroun-Imag", "Setting");
@@ -72,9 +81,31 @@ namespace NekoDeskTop.UI
             }
         }
 
+
+        private void RestoreDefaultState()
+        {
+            _defaultPosition = new Point(
+                (SystemParameters.PrimaryScreenWidth - this.ActualWidth) / 2,
+                (SystemParameters.PrimaryScreenHeight - this.ActualHeight) / 2
+            );
+
+            this.Left = _defaultPosition.X;
+            this.Top = _defaultPosition.Y;
+
+            if (SettingsMenu.Items.Count > 0)
+            {
+                _isInitializing = true;
+                SettingsMenu.SelectedIndex = 0;
+                _isInitializing = false;
+                ContentFrame.Navigate(new Uri("/SettingPages/General.xaml", UriKind.Relative));
+            }
+        }
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.Hide();
+            RestoreDefaultState();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void MaximizeButton_Click(object sender, RoutedEventArgs e)

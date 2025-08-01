@@ -9,6 +9,9 @@ namespace NekoDeskTop
     public partial class MainWindow : Window
     {
         private WinKeyInterceptor _winKeyInterceptor;
+        public Music music = new Music();
+        TopZ_index topZ_Index = new TopZ_index();
+        public Setting setting = new Setting();
 
         public MainWindow()
         {
@@ -16,6 +19,14 @@ namespace NekoDeskTop
             InitKey();
             InitINIConfig();
             InitUI();
+            ShareModule();
+        }
+
+        private void ShareModule()
+        {
+            Application.Current.Resources["Music"] = music;
+            Application.Current.Resources["TopZ_index"] = topZ_Index;
+            Application.Current.Resources["Setting"] = setting;
         }
 
         public void InitUI()
@@ -80,7 +91,7 @@ namespace NekoDeskTop
         {
             Dispatcher.Invoke(() =>
             {
-                var setting = new Setting { Owner = this };
+                topZ_Index.SetAbsoluteTopmost(setting);
                 setting.Show();
             });
         }
