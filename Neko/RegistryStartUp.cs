@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System.Diagnostics;
 using System.Reflection;
 
 namespace NekoDeskTop.Neko
@@ -19,8 +20,8 @@ namespace NekoDeskTop.Neko
                 {
                     if (key == null) return;
 
-                    string appPath = Assembly.GetExecutingAssembly().Location;
-                    key.SetValue(ProgramConfig.AppName, appPath);
+                    string appPath = Process.GetCurrentProcess().MainModule.FileName;
+                    key.SetValue(ProgramConfig.AppName, $"\"{appPath}\"");
                 }
             }
             catch (Exception ex)
