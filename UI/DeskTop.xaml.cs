@@ -6,9 +6,6 @@ using System.Windows;
 
 namespace NekoDeskTop
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private WinKeyInterceptor _winKeyInterceptor;
@@ -80,7 +77,6 @@ namespace NekoDeskTop
 
         private void OnWinKeyPressed()
         {
-            // 显示资源管理器（确保在UI线程执行）
             Dispatcher.Invoke(() =>
             {
                 var setting = new Setting { Owner = this };

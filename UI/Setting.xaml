@@ -16,13 +16,11 @@
             </Grid.RowDefinitions>
 
             <DockPanel LastChildFill="True" Grid.Column="2">
-                <!-- Label 停靠在左侧 -->
-                <Label Content="设置" 
+                <Label Content="Setting" 
        FontSize="15" 
        VerticalAlignment="Center"
        DockPanel.Dock="Left"/>
 
-                <!-- 按钮停靠在右侧 -->
                 <StackPanel Orientation="Horizontal" 
             HorizontalAlignment="Right"
             DockPanel.Dock="Right">
@@ -37,7 +35,6 @@
             Click="CloseButton_Click" />
                 </StackPanel>
 
-                <!-- 中间空白区域（可拖动窗口） -->
                 <Border Background="Transparent" MouseLeftButtonDown="DragWindow"/>
             </DockPanel>
 

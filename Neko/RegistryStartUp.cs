@@ -1,10 +1,5 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NekoDeskTop.Neko
 {
@@ -30,7 +25,7 @@ namespace NekoDeskTop.Neko
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"添加开机启动失败: {ex.Message}");
+                Console.WriteLine($"Add Error: {ex.Message}");
             }
         }
 
@@ -50,7 +45,7 @@ namespace NekoDeskTop.Neko
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"移除开机启动失败: {ex.Message}");
+                Console.WriteLine($"Remove Error: {ex.Message}");
             }
         }
 

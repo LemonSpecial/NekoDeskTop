@@ -11,8 +11,6 @@ namespace NekoDeskTop.UI
         {
             InitializeComponent();
             InitUI();
-
-            
         }
 
         private void InitUI()

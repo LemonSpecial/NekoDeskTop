@@ -16,13 +16,10 @@
             </Grid.RowDefinitions>
 
             <DockPanel LastChildFill="True" Grid.Column="2">
-                <!-- Label 停靠在左侧 -->
-                <Label Content="资源管理器" 
+                <Label Content="Explorer" 
            FontSize="15" 
            VerticalAlignment="Center"
            DockPanel.Dock="Left"/>
-
-                <!-- 按钮停靠在右侧 -->
                 <StackPanel Orientation="Horizontal" 
                 HorizontalAlignment="Right"
                 DockPanel.Dock="Right">
@@ -36,8 +33,6 @@
                 Width="45" Height="30" Content="✕" 
                 Click="CloseButton_Click" />
                 </StackPanel>
-
-                <!-- 中间空白区域（可拖动窗口） -->
                 <Border Background="Transparent" MouseLeftButtonDown="DragWindow"/>
             </DockPanel>
 
@@ -49,7 +44,6 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <!-- 后退/前进按钮 -->
                     <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0">
                         <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="30" Height="30">
                             <Image Source="/Resources/forward.png" Width="16" Height="16"/>
@@ -58,25 +52,20 @@
                             <Image Source="/Resources/back.png" Width="16" Height="16"/>
                         </Button>
                     </StackPanel>
-                    <!-- 地址栏 -->
                     <TextBox Grid.Column="1" Margin="5,5,5,5" VerticalContentAlignment="Center" 
-                         Text="此电脑" FontSize="12" BorderThickness="1" BorderBrush="#FFCCCCCC"/>
-                    <!-- 刷新按钮 -->
+                         Text="PC" FontSize="12" BorderThickness="1" BorderBrush="#FFCCCCCC"/>
                     <Button Grid.Column="2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" 
                         Height="30" Margin="5,0">
                         <Image Source="/Resources/refresh.png" Width="16" Height="16"/>
                     </Button>
-                    <!--搜索栏-->
                     <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="5,0">
                         <TextBox Margin="5,5,5,5" VerticalContentAlignment="Center" Width="150"
-                            Text="搜索" FontSize="12" BorderThickness="1" BorderBrush="#FFCCCCCC" Background="White"/>
+                            Text="Search" FontSize="12" BorderThickness="1" BorderBrush="#FFCCCCCC" Background="White"/>
                         <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" 
                                 Height="30">
                             <Image Source="/Resources/search.png" Width="15" Height="16"/>
                         </Button>
                     </StackPanel>
-
-
                 </Grid>
             </Border>
 
