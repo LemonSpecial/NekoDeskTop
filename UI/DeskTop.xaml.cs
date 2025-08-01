@@ -47,6 +47,7 @@ namespace NekoDeskTop
             fileSystem.Write("Settings", "Language", "Chinese");
             fileSystem.Write("Settings", "Registry", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\NekoDeskTop");
             fileSystem.Write("WindowBackgroun-Imag", "Explorer", "C:\\Users\\Public\\Pictures\\bgc.png");
+            fileSystem.Write("WindowBackgroun-Imag", "Setting", "C:\\Users\\Public\\Pictures\\bgc.png");
             fileSystem.Write("WindowBackgroun-Imag", "DeskTop", "C:\\Users\\Public\\Videos\\bgc.mp4");
             fileSystem.Write("Server", "IP", "192.168.1.1");
 

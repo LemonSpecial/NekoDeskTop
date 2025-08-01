@@ -12,28 +12,34 @@ namespace NekoDeskTop.UI
         {
             InitializeComponent();
 
-            InitUI();
-            
+            StartInitUI();
+            InitEnd();
         }
 
-        private void InitUI()
+        private void InitEnd()
+        {
+            
+            if (SettingsMenu.Items.Count > 0)
+            {
+                SettingsMenu.SelectedIndex = 0; 
+            }
+        }
+
+        private void StartInitUI()
         {
             this.WindowStyle = WindowStyle.None;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            this.AllowsTransparency = true;
-            //this.ResizeMode = ResizeMode.CanResize;
 
             FileSystem fileSystem = new FileSystem();
-            string path = fileSystem.Read("WindowBackgroun-Imag", "Explorer");
+            string path = fileSystem.Read("WindowBackgroun-Imag", "Setting");
             if (!string.IsNullOrEmpty(path))
             {
                 this.Background = new ImageBrush(new BitmapImage(new Uri(path)));
             }
             else
             {
-                this.Background = new SolidColorBrush(Colors.White);
+                this.Background = new SolidColorBrush(Colors.Red);
             }
-            //SettingsMenu.SelectedIndex = 0;
         }
 
         private void SettingsMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)

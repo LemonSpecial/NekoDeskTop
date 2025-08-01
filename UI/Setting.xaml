@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NekoDeskTop.UI"
         mc:Ignorable="d"
-        Title="Setting" Height="450" Width="800">
-    <Border BorderBrush="#FF9C9C9C" BorderThickness="1" CornerRadius="5" Background="#FFF0F0F0">
+        Title="Setting" Height="450" Width="800" AllowsTransparency="True" >
+    <Border BorderBrush="#FF9C9C9C" BorderThickness="1">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <DockPanel Grid.Row="0" Background="#FFDDDDDD">
+            <DockPanel Grid.Row="0">
                 <Label Content="Settings" 
                        FontSize="15" 
                        VerticalAlignment="Center"
@@ -88,7 +88,7 @@
                     </ListView>
                 </Border>
 
-                <Border Grid.Column="1" Background="White">
+                <Border Grid.Column="1">
                     <Frame x:Name="ContentFrame" NavigationUIVisibility="Hidden"/>
                 </Border>
             </Grid>
