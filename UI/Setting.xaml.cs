@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -20,6 +21,7 @@ namespace NekoDeskTop.UI
             this.WindowStyle = WindowStyle.None;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.AllowsTransparency = true;
+            //this.ResizeMode = ResizeMode.CanResize;
 
             FileSystem fileSystem = new FileSystem();
             string path = fileSystem.Read("WindowBackgroun-Imag", "Explorer");
@@ -31,6 +33,33 @@ namespace NekoDeskTop.UI
             {
                 this.Background = new SolidColorBrush(Colors.White);
             }
+            //SettingsMenu.SelectedIndex = 0;
+        }
+
+        private void SettingsMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            /*
+            if (SettingsMenu.SelectedItem == null) return;
+
+            var selectedItem = (ListViewItem)SettingsMenu.SelectedItem;
+            var content = ((TextBlock)((StackPanel)selectedItem.Content).Children[1]).Text;
+
+            switch (content)
+            {
+                case "General":
+                    ContentFrame.Navigate(new Uri("SettingPages/.xaml", UriKind.Relative));
+                    break;
+                case "Appearance":
+                    ContentFrame.Navigate(new Uri("SettingPages/.xaml", UriKind.Relative));
+                    break;
+                case "Notifications":
+                    ContentFrame.Navigate(new Uri("SettingPages/.xaml", UriKind.Relative));
+                    break;
+                case "About":
+                    ContentFrame.Navigate(new Uri("SettingPages/.xaml", UriKind.Relative));
+                    break;
+            } 
+             */
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
