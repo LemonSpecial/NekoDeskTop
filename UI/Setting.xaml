@@ -67,21 +67,61 @@
 
                         <ListViewItem>
                             <StackPanel Orientation="Horizontal">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#FFF37E7E"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
                                 <TextBlock Text="General" Margin="20,5,0,5"/>
                             </StackPanel>
                         </ListViewItem>
                         <ListViewItem>
                             <StackPanel Orientation="Horizontal">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#FFF37E7E"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
                                 <TextBlock Text="Display" Margin="20,5,0,5"/>
                             </StackPanel>
                         </ListViewItem>
                         <ListViewItem>
                             <StackPanel Orientation="Horizontal">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#FFF37E7E"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
                                 <TextBlock Text="Plugins" Margin="20,5,0,5"/>
                             </StackPanel>
                         </ListViewItem>
                         <ListViewItem>
                             <StackPanel Orientation="Horizontal">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#FFF37E7E"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
                                 <TextBlock Text="About" Margin="20,5,0,5"/>
                             </StackPanel>
                         </ListViewItem>

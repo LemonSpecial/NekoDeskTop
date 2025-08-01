@@ -35,8 +35,4 @@
     <Resource Include="Resources\search.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="SettingPages\" />
-  </ItemGroup>
-
 </Project>

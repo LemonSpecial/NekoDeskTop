@@ -8,6 +8,8 @@ namespace NekoDeskTop.UI
 {
     public partial class Setting : Window
     {
+
+        private bool _isInitializing = false;
         public Setting()
         {
             InitializeComponent();
@@ -18,12 +20,16 @@ namespace NekoDeskTop.UI
 
         private void InitEnd()
         {
-            
+
             if (SettingsMenu.Items.Count > 0)
             {
-                SettingsMenu.SelectedIndex = 0; 
+                _isInitializing = true;
+                SettingsMenu.SelectedIndex = 0;
+                _isInitializing = false;
+                ContentFrame.Navigate(new Uri("/SettingPages/General.xaml", UriKind.Relative));
             }
         }
+
 
         private void StartInitUI()
         {
@@ -44,28 +50,26 @@ namespace NekoDeskTop.UI
 
         private void SettingsMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            /*
-            if (SettingsMenu.SelectedItem == null) return;
+            if (_isInitializing || SettingsMenu.SelectedItem == null) return;
 
             var selectedItem = (ListViewItem)SettingsMenu.SelectedItem;
-            var content = ((TextBlock)((StackPanel)selectedItem.Content).Children[1]).Text;
+            var content = ((TextBlock)((StackPanel)selectedItem.Content).Children[0]).Text;
 
             switch (content)
             {
                 case "General":
-                    ContentFrame.Navigate(new Uri("SettingPages/.xaml", UriKind.Relative));
+                    ContentFrame.Navigate(new Uri("/SettingPages/General.xaml", UriKind.Relative));
                     break;
-                case "Appearance":
-                    ContentFrame.Navigate(new Uri("SettingPages/.xaml", UriKind.Relative));
+                case "Display":
+                    ContentFrame.Navigate(new Uri("/SettingPages/Display.xaml", UriKind.Relative));
                     break;
-                case "Notifications":
-                    ContentFrame.Navigate(new Uri("SettingPages/.xaml", UriKind.Relative));
+                case "Plugins":
+                    ContentFrame.Navigate(new Uri("/SettingPages/Plugins.xaml", UriKind.Relative));
                     break;
                 case "About":
-                    ContentFrame.Navigate(new Uri("SettingPages/.xaml", UriKind.Relative));
+                    ContentFrame.Navigate(new Uri("/SettingPages/About.xaml", UriKind.Relative));
                     break;
-            } 
-             */
+            }
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
