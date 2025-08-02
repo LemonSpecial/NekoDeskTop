@@ -86,6 +86,11 @@ namespace NekoDeskTop.UI
             this.AllowsTransparency = true;
             this.Background = Brushes.Transparent;
             this.SetValue(Window.IsEnabledProperty, false);
+            this.WindowStartupLocation = WindowStartupLocation.Manual;
+            this.Left = 0;
+            this.Top = 0;
+            this.Width = 100;
+            this.Height = 100;
 
             _deviceEnumerator = new MMDeviceEnumerator();
             RefreshAudioDevices();

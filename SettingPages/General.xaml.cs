@@ -1,9 +1,11 @@
-﻿using NekoDeskTop.Neko;
+﻿using NekoDeskTop.Module;
+using NekoDeskTop.Neko;
 using NekoDeskTop.UI;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace NekoDeskTop.SettingPages
 {
@@ -20,55 +22,135 @@ namespace NekoDeskTop.SettingPages
         private void InitListData()
         {
             ItemGroups = new ObservableCollection<ItemGroup>
-    {
-        new ItemGroup
-        {
-            GroupName = "Audio Visualization",
-            Items = new ObservableCollection<object>
             {
-                new SelectableItem
+                new ItemGroup
                 {
-                    Id = 1,
-                    Name = "Whether to display components",
-                    OnSelected = (item) =>
+                    GroupName = "Audio Visualization",
+                    Items = new ObservableCollection<object>
                     {
-                        Dispatcher.Invoke(() =>
+                        new SelectableItem
                         {
-                            var music = Application.Current.Resources["Music"] as Music;
-                            var topz_index = Application.Current.Resources["TopZ_index"] as TopZ_index;
-                            var setting = Application.Current.Resources["Setting"] as Setting;
-                            if (music != null && setting != null)
+                            Id = 1,
+                            Name = "Whether to display components",
+                            OnSelected = (item) =>
                             {
-                                music.Show();
-                                topz_index.SetWindowAbove(music,setting);
+                                Dispatcher.Invoke(() =>
+                                {
+                                    var music = Application.Current.Resources["Music"] as Music;
+                                    var topz_index = Application.Current.Resources["TopZ_index"] as TopZ_index;
+                                    var setting = Application.Current.Resources["Setting"] as Setting;
+                                    if (music != null && setting != null)
+                                    {
+                                        music.Show();
+                                        topz_index.SetWindowAbove(music,setting);
+                                    }
+                                });
+                            },
+                            OnDeselected = (item) =>
+                            {
+                                var music = Application.Current.Resources["Music"] as Music;
+                                if(music != null)
+                                {
+                                    music.Hide();
+                                }
                             }
-                        });
-                    },
-                    OnDeselected = (item) =>
-                    {
-                        var music = Application.Current.Resources["Music"] as Music;
-                        if(music != null)
+                        },
+                        new InputItem
                         {
-                            music.Hide();
-                        }
-                    }
-                },
-                new InputItem
-                {
-                    Label = "Set the number of spectrum bars",
-                    Value = "1024",
-                    OnValueChanged = (item, newValue) =>
-                    {
-                        if (int.TryParse(newValue, out int volume))
+                            Label = "Set the number of spectrum bars:\t",
+                            Value = "1024",
+                            OnValueChanged = (item, newValue) =>
+                            {
+                                if (int.TryParse(newValue, out int volume))
+                                {
+                                    var music = Application.Current.Resources["Music"] as Music;
+                                    music.BarCount = volume;
+                                }
+                            }
+                        },
+                        new InputItem
                         {
-                            var music = Application.Current.Resources["Music"] as Music;
-                            music.BarCount = volume;
+                            Label = "Set spectrum thickness:\t",
+                            Value = "2.5",
+                            OnValueChanged = (item, newValue) =>
+                            {
+                                if (int.TryParse(newValue, out int volume))
+                                {
+                                    var music = Application.Current.Resources["Music"] as Music;
+                                    music.BarThickness = volume;
+                                }
+                            }
+                        },
+                        new InputItem
+                        {
+                            Label = "Set the rounded corners of the spectrum:\t",
+                            Value = "0",
+                            OnValueChanged = (item, newValue) =>
+                            {
+                                if (int.TryParse(newValue, out int volume))
+                                {
+                                    var music = Application.Current.Resources["Music"] as Music;
+                                    music.BarCornerRadius = volume;
+                                }
+                            }
+                        },
+                        new InputItem
+                        {
+                            Label = "Window.X:\t",
+                            Value = "0",
+                            OnValueChanged = (item, newValue) =>
+                            {
+                                if (int.TryParse(newValue, out int volume))
+                                {
+                                    var music = Application.Current.Resources["Music"] as Music;
+                                    music.WindowStartupLocation = WindowStartupLocation.Manual;
+                                    music.Left = volume;
+                                }
+                            }
+                        },
+                        new InputItem
+                        {
+                            Label = "Window.Y:\t",
+                            Value = "0",
+                            OnValueChanged = (item, newValue) =>
+                            {
+                                if (int.TryParse(newValue, out int volume))
+                                {
+                                    var music = Application.Current.Resources["Music"] as Music;
+                                    music.WindowStartupLocation = WindowStartupLocation.Manual;
+                                    music.Top = volume;
+                                }
+                            }
+                        },
+                        new InputItem
+                        {
+                            Label = "Window.Height:\t",
+                            Value = "100",
+                            OnValueChanged = (item, newValue) =>
+                            {
+                                if (int.TryParse(newValue, out int volume))
+                                {
+                                    var music = Application.Current.Resources["Music"] as Music;
+                                    music.Height = volume;
+                                }
+                            }
+                        },
+                        new InputItem
+                        {
+                            Label = "Window.Width:\t",
+                            Value = "100",
+                            OnValueChanged = (item, newValue) =>
+                            {
+                                if (int.TryParse(newValue, out int volume))
+                                {
+                                    var music = Application.Current.Resources["Music"] as Music;
+                                    music.Width = volume;
+                                }
+                            }
                         }
                     }
                 }
-            }
-        }
-    };
+            };
 
             foreach (var group in ItemGroups)
             {
@@ -144,178 +226,4 @@ namespace NekoDeskTop.SettingPages
             }
         }
     }
-
-    public class ItemGroup : INotifyPropertyChanged
-    {
-        private bool? _isAllSelected;
-        public bool? IsAllSelected
-        {
-            get => _isAllSelected;
-            set
-            {
-                if (_isAllSelected != value)
-                {
-                    _isAllSelected = value;
-                    OnPropertyChanged(nameof(IsAllSelected));
-                    if (value.HasValue)
-                    {
-                        foreach (var item in Items.OfType<SelectableItem>())
-                        {
-                            item.IsSelected = value.Value;
-                        }
-                    }
-                }
-            }
-        }
-        public string GroupName { get; set; } = "";
-        public ObservableCollection<object> Items { get; set; } = new ObservableCollection<object>();
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
-    public class SelectableItem : INotifyPropertyChanged
-    {
-        private bool _isSelected;
-        private string _name = string.Empty;
-        private bool _isEnabled = true;
-        private object? _tag;
-        public int Id { get; set; }
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if (_name != value)
-                {
-                    _name = value;
-                    OnPropertyChanged(nameof(Name));
-                }
-            }
-        }
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set
-            {
-                if (_isSelected != value && _isEnabled)
-                {
-                    _isSelected = value;
-                    OnPropertyChanged(nameof(IsSelected));
-                    OnSelectionChanged?.Invoke(this, value);
-
-                    if (value)
-                    {
-                        OnSelected?.Invoke(this);
-                    }
-                    else
-                    {
-                        OnDeselected?.Invoke(this);
-                    }
-                }
-            }
-        }
-
-        public bool IsEnabled
-        {
-            get => _isEnabled;
-            set
-            {
-                if (_isEnabled != value)
-                {
-                    _isEnabled = value;
-                    OnPropertyChanged(nameof(IsEnabled));
-                    if (!value && _isSelected)
-                    {
-                        IsSelected = false;
-                    }
-                }
-            }
-        }
-
-        public object? Tag
-        {
-            get => _tag;
-            set
-            {
-                if (_tag != value)
-                {
-                    _tag = value;
-                    OnPropertyChanged(nameof(Tag));
-                }
-            }
-        }
-        public Action<SelectableItem>? OnSelected { get; set; }
-        public Action<SelectableItem>? OnDeselected { get; set; }
-
-        public Action<SelectableItem, bool>? OnSelectionChanged { get; set; }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public void Toggle()
-        {
-            IsSelected = !IsSelected;
-        }
-    }
-    public class InputItem : INotifyPropertyChanged
-    {
-        private string _value = "";
-        private string _label = "";
-        private bool _isEnabled = true;
-
-        public string Label
-        {
-            get => _label;
-            set
-            {
-                if (_label != value)
-                {
-                    _label = value;
-                    OnPropertyChanged(nameof(Label));
-                }
-            }
-        }
-
-        public string Value
-        {
-            get => _value;
-            set
-            {
-                if (_value != value)
-                {
-                    _value = value;
-                    OnPropertyChanged(nameof(Value));
-                    OnValueChanged?.Invoke(this, value);
-                }
-            }
-        }
-
-        public bool IsEnabled
-        {
-            get => _isEnabled;
-            set
-            {
-                if (_isEnabled != value)
-                {
-                    _isEnabled = value;
-                    OnPropertyChanged(nameof(IsEnabled));
-                }
-            }
-        }
-
-        public Action<InputItem, string>? OnValueChanged { get; set; }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
-
 }

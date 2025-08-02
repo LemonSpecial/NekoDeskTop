@@ -2,25 +2,35 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="clr-namespace:NekoDeskTop.SettingPages"
+      xmlns:local1="clr-namespace:NekoDeskTop.Module"
       Title="General" Height="Auto" Width="Auto">
     <Grid>
         <ScrollViewer>
             <ItemsControl ItemsSource="{Binding ItemGroups}">
                 <ItemsControl.Resources>
-                    <DataTemplate DataType="{x:Type local:SelectableItem}">
+                    <DataTemplate DataType="{x:Type local1:SelectableItem}">
                         <CheckBox Content="{Binding Name}" 
                                   IsChecked="{Binding IsSelected, Mode=TwoWay}"
                                   IsEnabled="{Binding IsEnabled}"
                                   Margin="0,2"/>
                     </DataTemplate>
 
-                    <DataTemplate DataType="{x:Type local:InputItem}">
-                        <StackPanel Orientation="Horizontal" Margin="0,5">
-                            <TextBlock Text="{Binding Label}" Width="150" VerticalAlignment="Center"/>
+                    <DataTemplate DataType="{x:Type local1:InputItem}">
+                        <Grid Margin="0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Label}" 
+                                       VerticalAlignment="Center"
+                                       Grid.Column="0"
+                                       Margin="0,0,10,0"/>
                             <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
-                                     Width="200"
+                                     Width="100"
+                                     HorizontalAlignment="Left"
+                                     Grid.Column="1"
                                      IsEnabled="{Binding IsEnabled}"/>
-                        </StackPanel>
+                        </Grid>
                     </DataTemplate>
                 </ItemsControl.Resources>
 
@@ -31,8 +41,20 @@
                                 <Label Content="{Binding GroupName}" 
                                        FontWeight="Bold"
                                        Margin="0,5"/>
+
                                 <ItemsControl ItemsSource="{Binding Items}" 
-                                             Margin="20,0,0,0"/>
+                                             Margin="20,0,0,0">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemContainerStyle>
+                                        <Style TargetType="ContentPresenter">
+                                            <Setter Property="Margin" Value="0,0,30,5"/>
+                                        </Style>
+                                    </ItemsControl.ItemContainerStyle>
+                                </ItemsControl>
                             </StackPanel>
                         </Border>
                     </DataTemplate>
