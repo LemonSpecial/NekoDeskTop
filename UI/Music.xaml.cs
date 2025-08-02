@@ -77,6 +77,71 @@ namespace NekoDeskTop.UI
         public Music()
         {
             InitializeComponent();
+            InitUI();
+
+            _deviceEnumerator = new MMDeviceEnumerator();
+            RefreshAudioDevices();
+            InitializeVisualization();
+            StartCapture();
+        }
+
+        private void InitUI()
+        {
+            FileSystem fileSystem = new FileSystem();
+
+            var defaults = new Dictionary<string, object>
+            {
+                { "PanelDisplay", false },
+                { "BarCount", 128 },
+                { "BarThickness", 1.0 },
+                { "BarCornerRadius", 0.0 },
+                { "PanelLocation_X", 0.0 },
+                { "PanelLocation_Y", 0.0 },
+                { "PanelWidth", 300.0 },
+                { "PanelHeight", 100.0 }
+            };
+
+            foreach (var entry in defaults)
+            {
+                if (!fileSystem.KeyExists("Audio Visualization", entry.Key))
+                {
+                    fileSystem.Write("Audio Visualization", entry.Key, entry.Value.ToString());
+                }
+            }
+
+            try
+            {
+                string panelDisplay = fileSystem.Read("Audio Visualization", "PanelDisplay");
+                this.Visibility = panelDisplay.Equals("True", StringComparison.OrdinalIgnoreCase)
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
+
+                string barCountStr = fileSystem.Read("Audio Visualization", "BarCount");
+                this.BarCount = int.TryParse(barCountStr, out int barCount) ? barCount : (int)defaults["BarCount"];
+
+                string barThicknessStr = fileSystem.Read("Audio Visualization", "BarThickness");
+                this.BarThickness = double.TryParse(barThicknessStr, out double barThickness) ? barThickness : (double)defaults["BarThickness"];
+
+                string barCornerRadiusStr = fileSystem.Read("Audio Visualization", "BarCornerRadius");
+                this.BarCornerRadius = double.TryParse(barCornerRadiusStr, out double barCornerRadius) ? barCornerRadius : (double)defaults["BarCornerRadius"];
+
+                string panelXStr = fileSystem.Read("Audio Visualization", "PanelLocation_X");
+                this.Left = double.TryParse(panelXStr, out double panelX) ? panelX : (double)defaults["PanelLocation_X"];
+
+                string panelYStr = fileSystem.Read("Audio Visualization", "PanelLocation_Y");
+                this.Top = double.TryParse(panelYStr, out double panelY) ? panelY : (double)defaults["PanelLocation_Y"];
+
+                string panelWidthStr = fileSystem.Read("Audio Visualization", "PanelWidth");
+                this.Width = double.TryParse(panelWidthStr, out double panelWidth) ? panelWidth : (double)defaults["PanelWidth"];
+
+                string panelHeightStr = fileSystem.Read("Audio Visualization", "PanelHeight");
+                this.Height = double.TryParse(panelHeightStr, out double panelHeight) ? panelHeight : (double)defaults["PanelHeight"];
+            }
+            catch (Exception ex)
+            {
+                var log = Application.Current.Resources["UI.Console"] as Console;
+                log.AppendString($"加载配置失败: {ex.Message}",Brushes.Red);
+            }
 
             this.Topmost = true;
             this.Focusable = false;
@@ -87,17 +152,7 @@ namespace NekoDeskTop.UI
             this.Background = Brushes.Transparent;
             this.SetValue(Window.IsEnabledProperty, false);
             this.WindowStartupLocation = WindowStartupLocation.Manual;
-            this.Left = 0;
-            this.Top = 0;
-            this.Width = 100;
-            this.Height = 100;
-
-            _deviceEnumerator = new MMDeviceEnumerator();
-            RefreshAudioDevices();
-            InitializeVisualization();
-            StartCapture();
         }
-
 
         public void RefreshAudioDevices()
         {

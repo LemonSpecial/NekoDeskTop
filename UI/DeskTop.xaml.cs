@@ -12,6 +12,7 @@ namespace NekoDeskTop
         public Music music = new Music();
         TopZ_index topZ_Index = new TopZ_index();
         public Setting setting = new Setting();
+        public UI.Console console = new UI.Console();
 
         public MainWindow()
         {
@@ -27,6 +28,7 @@ namespace NekoDeskTop
             Application.Current.Resources["Music"] = music;
             Application.Current.Resources["TopZ_index"] = topZ_Index;
             Application.Current.Resources["Setting"] = setting;
+            Application.Current.Resources["UI.Console"] = console;
         }
 
         public void InitUI()
@@ -55,12 +57,35 @@ namespace NekoDeskTop
 
             FileSystem fileSystem = new FileSystem();
 
-            fileSystem.Write("Settings", "Language", "Chinese");
-            fileSystem.Write("Settings", "Registry", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\NekoDeskTop");
-            fileSystem.Write("WindowBackgroun-Imag", "Explorer", "C:\\Users\\Public\\Pictures\\bgc.png");
-            fileSystem.Write("WindowBackgroun-Imag", "Setting", "C:\\Users\\Public\\Pictures\\bgc.png");
-            fileSystem.Write("WindowBackgroun-Imag", "DeskTop", "C:\\Users\\Public\\Videos\\bgc.mp4");
-            fileSystem.Write("Server", "IP", "192.168.1.1");
+            if (!fileSystem.KeyExists("Settings", "Language"))
+            {
+                fileSystem.Write("Settings", "Language", "Chinese");
+            }
+
+            if (!fileSystem.KeyExists("Settings", "Registry"))
+            {
+                fileSystem.Write("Settings", "Registry", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\NekoDeskTop");
+            }
+
+            if (!fileSystem.KeyExists("WindowBackgroun-Imag", "Explorer"))
+            {
+                fileSystem.Write("WindowBackgroun-Imag", "Explorer", "C:\\Users\\Public\\Pictures\\bgc.png");
+            }
+
+            if (!fileSystem.KeyExists("WindowBackgroun-Imag", "Setting"))
+            {
+                fileSystem.Write("WindowBackgroun-Imag", "Setting", "C:\\Users\\Public\\Pictures\\bgc.png");
+            }
+
+            if (!fileSystem.KeyExists("WindowBackgroun-Imag", "DeskTop"))
+            {
+                fileSystem.Write("WindowBackgroun-Imag", "DeskTop", "C:\\Users\\Public\\Videos\\bgc.mp4");
+            }
+
+            if (!fileSystem.KeyExists("Server", "IP"))
+            {
+                fileSystem.Write("Server", "IP", "192.168.1.1");
+            }
 
             string path = fileSystem.Read("WindowBackgroun-Imag", "DeskTop");
             if (!string.IsNullOrEmpty(path) && File.Exists(path))
@@ -96,5 +121,23 @@ namespace NekoDeskTop
             });
         }
 
+        private void Window_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case System.Windows.Input.Key.F:
+                    if (console.IsVisible)
+                    {
+                        console.Hide();
+                    }
+                    else
+                    {
+                        console.Show();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
